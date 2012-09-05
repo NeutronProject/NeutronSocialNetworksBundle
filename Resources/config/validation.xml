@@ -1,0 +1,67 @@
+<?xml version="1.0" ?>
+<constraint-mapping xmlns="http://symfony.com/schema/dic/constraint-mapping"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://symfony.com/schema/dic/constraint-mapping
+        http://symfony.com/schema/dic/constraint-mapping/constraint-mapping-1.0.xsd">
+
+    <class name="Neutron\Widget\SocialNetworksBundle\Entity\SocialNetwork">   
+
+        <property name="name">
+        	<constraint name="NotBlank">
+                <option name="message">name.blank</option>
+                <option name="groups">
+                    <value>default</value>
+                </option>
+            </constraint>
+            <constraint name="MinLength">
+                <option name="limit">2</option>
+                <option name="message">name.short</option>
+                <option name="groups">
+                    <value>default</value>
+                </option>
+            </constraint>
+            <constraint name="MaxLength">
+                <option name="limit">255</option>
+                <option name="message">name.long</option>
+                <option name="groups">
+                    <value>default</value>
+                </option>
+            </constraint>
+        </property>
+        
+        <property name="linkClass">
+        	<constraint name="NotBlank">
+                <option name="message">linkClass.blank</option>
+                <option name="groups">
+                    <value>default</value>
+                </option>
+            </constraint>
+        </property>
+        
+        <property name="linkUrl">
+        	<constraint name="NotBlank">
+                <option name="message">linkUrl.blank</option>
+                <option name="groups">
+                    <value>default</value>
+                </option>
+            </constraint>
+        	<constraint name="Url">
+                <option name="message">linkUrl.url</option>
+                <option name="groups">
+                    <value>default</value>
+                </option>
+            </constraint>
+        </property>
+        
+        <property name="linkTarget">
+        	<constraint name="NotBlank">
+                <option name="message">linkTarget.blank</option>
+                <option name="groups">
+                    <value>default</value>
+                </option>
+            </constraint>
+        </property>
+
+    </class>
+
+</constraint-mapping>

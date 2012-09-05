@@ -1,0 +1,20 @@
+{
+    "name":         "neutron/widget/social-networks-bundle",
+    "description":  "To be completed",
+    "keywords":     ["neutron, widget, social"],
+    "type":         "symfony-bundle",
+    "license":      "MIT",
+    "authors":      [
+        {
+            "name":     "Nikolay Georgiev",
+            "homepage": "http://example.com"
+        }
+    ],
+    "require":      {
+        "symfony/framework-bundle": ">=2.1,<2.2-dev"
+    },
+    "autoload":     {
+        "psr-0": { "Neutron\\Widget\\SocialNetworksBundle": "" }
+    },
+    "target-dir": "Neutron/Widget/SocialNetworksBundle"
+}
