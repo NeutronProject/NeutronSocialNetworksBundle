@@ -111,7 +111,7 @@ class AdministrationController extends ContainerAware
     protected function doDelete(SocialNetworkInterface $socialNetwork)
     {
         $manager = $this->container->get('neutron_social_networks.manager');
-        $manager->delete($socialNetwork);
+        $manager->delete($socialNetwork, true);
     }
     
 

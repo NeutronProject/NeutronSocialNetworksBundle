@@ -1,32 +1,21 @@
 <?php
-namespace Neutron\Widget\SocialNetworksBundle\Doctrine\ORM;
+namespace Neutron\Widget\SocialNetworksBundle\Doctrine;
 
 use Neutron\Widget\SocialNetworksBundle\Model\SocialNetworkInterface;
-
-use Doctrine\ORM\EntityManager;
 
 use Symfony\Component\Translation\TranslatorInterface;
 
 use Neutron\Widget\SocialNetworksBundle\Model\SocialNetworkManagerInterface;
 
-class Manager implements SocialNetworkManagerInterface
+use Neutron\ComponentBundle\Doctrine\AbstractManager;
+
+class SocialNetworksManager extends AbstractManager implements SocialNetworkManagerInterface
 {
-    protected $em;
-    
-    protected $repository;
-    
-    protected $meta;
-    
-    protected $className;
-    
+
     protected $translator;
     
-    public function __construct(EntityManager $em, $className, TranslatorInterface $translator)
+    public function __construct(TranslatorInterface $translator)
     {
-        $this->em = $em;
-        $this->repository = $this->em->getRepository($className);
-        $this->meta = $this->em->getClassMetadata($className);
-        $this->className = $this->meta->name;
         $this->translator = $translator;
     }
     
@@ -74,43 +63,14 @@ class Manager implements SocialNetworkManagerInterface
     {
         return $this->repository->getQueryBuilderForDataGrid();
     }
-    
-    public function create()
-    {
-        $class = $this->className;
-        return new $class();
-    }
-    
-    public function update(SocialNetworkInterface $entity, $andFlush = true)
-    {
-        $this->em->persist($entity);
-        
-        if ($andFlush){
-            $this->em->flush();
-        }     
-    }
-    
-    public function delete(SocialNetworkInterface $entity, $andFlush = true)
-    {
-        $this->em->remove($entity);
-        
-        if ($andFlush){
-            $this->em->flush();
-        }
-    }
-    
-    public function findOneBy(array $criteria)
-    {
-        return $this->repository->findOneBy($criteria);
-    }
-    
+
     public function changePosition(SocialNetworkInterface $entity, $position, $andFlush = true)
     {
         $entity->setPosition($position);
         
         if ($andFlush){
-            $this->em->flush();
-            $this->em->clear();
+            $this->om->flush();
+            $this->om->clear();
         }
     }
     

@@ -30,6 +30,7 @@ class NeutronSocialNetworksExtension extends Extension
         $container->setAlias('neutron_social_networks.manager', $config['manager']);
         $container->setParameter('neutron_social_networks.grid', $config['grid']);
         $container->setParameter('neutron_social_networks.social_network_class', $config['social_network_class']);
+        $container->setParameter('neutron_social_networks.translation_domain', $config['translation_domain']);
         $container->setParameter('neutron_social_networks.template', $config['template']);
 
         $container->setAlias('neutron_social_networks.form.handler.social_network', $config['form']['handler']);

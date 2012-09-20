@@ -38,6 +38,7 @@ class Configuration implements ConfigurationInterface
                 ->scalarNode('controller_administration')->defaultValue('neutron_social_networks.controller.administration.default')->end()
                 ->scalarNode('controller_front')->defaultValue('neutron_social_networks.controller.front.default')->end()
                 ->scalarNode('manager')->defaultValue('neutron_social_networks.manager.default')->end()
+                ->scalarNode('translation_domain')->defaultValue('NeutronSocialNetworksBundle')->end()
                 ->scalarNode('grid')->defaultValue('social_network_management')->end()
                 ->scalarNode('social_network_class')->isRequired()->cannotBeEmpty()->end()
                 ->scalarNode('template')->isRequired()->cannotBeEmpty()->end()

@@ -1,4 +1,4 @@
-<?xml version="1.0" ?>
+<?xml version="1.0" ?> 
 
 <container xmlns="http://symfony.com/schema/dic/services"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
@@ -9,7 +9,7 @@
         <parameter key="neutron_social_networks.widget.builder.class">Neutron\Widget\SocialNetworksBundle\SocialNetworksWidget</parameter>
         <parameter key="neutron_social_networks.controller.administration.default.class">Neutron\Widget\SocialNetworksBundle\Controller\Backend\AdministrationController</parameter>
         <parameter key="neutron_social_networks.controller.front.default.class">Neutron\Widget\SocialNetworksBundle\Controller\Frontend\DefaultController</parameter>
-        <parameter key="neutron_social_networks.manager.default.class">Neutron\Widget\SocialNetworksBundle\Doctrine\ORM\Manager</parameter>
+        <parameter key="neutron_social_networks.manager.default.class">Neutron\Widget\SocialNetworksBundle\Doctrine\SocialNetworksManager</parameter>
         <parameter key="neutron_social_networks.datagrid.social_networks.class">Neutron\Widget\SocialNetworksBundle\DataGrid\SocialNetworkDataGrid</parameter>
         <parameter key="neutron_social_networks.event_listener.datagrid_row_position_change_listener.class">Neutron\Widget\SocialNetworksBundle\EventListener\DataGridRowPositionChangeListener</parameter>
         <parameter key="neutron_social_networks.form.type.social_network.class">Neutron\Widget\SocialNetworksBundle\Form\Type\SocialNetworkType</parameter>
@@ -20,14 +20,14 @@
     <services>
         <service id="neutron_social_networks.widget.builder" class="%neutron_social_networks.widget.builder.class%">
             <argument type="service" id="event_dispatcher" />
-            <argument type="service" id="neutron_layout.widget.factory" />
+            <argument type="service" id="neutron_mvc.widget.factory" />
             <argument type="service" id="neutron_social_networks.manager" />
             <argument type="service" id="translator" />
             <argument>%neutron_social_networks.widget_options%</argument>
         </service>
                 
         <service id="neutron_social_networks.widget" 
-        	class="Neutron\LayoutBundle\Widget\WidgetFactory"
+        	class="Neutron\MvcBundle\Widget\WidgetFactory"
         	factory-service="neutron_social_networks.widget.builder"
         	factory-method="build"
         >
@@ -46,10 +46,17 @@
 		    </call>
 		</service>
 		
-		<service id="neutron_social_networks.manager.default" class="%neutron_social_networks.manager.default.class%">
-		    <argument type="service" id="doctrine.orm.entity_manager" />
-		    <argument>%neutron_social_networks.social_network_class%</argument>
+		<service id="neutron_social_networks.manager.default" 
+			class="%neutron_social_networks.manager.default.class%"
+			parent="neutron_component.doctrine.manager"
+		>
 		    <argument type="service" id="translator" />
+		    <call method="setClassName">
+		        <argument>%neutron_social_networks.social_network_class%</argument>
+		    </call>
+		    <call method="setObjectManager">
+		        <argument type="service" id="object_manager" />
+		    </call>
 		</service>
 		
 		<service id="neutron_social_networks.datagrid.social_networks" 
@@ -96,15 +103,22 @@
 		
 		<service id="neutron_social_networks.form.handler.social_network.default" 
             class="%neutron_social_networks.form.handler.social_network.default.class%" 
+            parent="neutron_component.form.handler"
             scope="request" 
-            public="false">
-			
-            <argument type="service" id="neutron_social_networks.form.social_network" />
-            <argument type="service" id="neutron_component.form.helper.form_helper" />
-            <argument type="service" id="request" />
-            <argument type="service" id="router" />
-            <argument type="service" id="translator" />
-            <argument type="service" id="neutron_social_networks.manager" />
+            public="false"
+        >
+            <call method="setObjectManager" >
+            	<argument type="service" id="object_manager" />
+            </call>
+            <call method="setForm" >
+            	<argument type="service" id="neutron_social_networks.form.social_network" />
+            </call>
+            <call method="setTranslationDomain" >
+            	<argument>%neutron_social_networks.translation_domain%</argument>
+            </call>
+            <call method="setSocialNetworksManager" >
+            	<argument type="service" id="neutron_social_networks.manager" />
+            </call>
         </service>
 		
     </services>

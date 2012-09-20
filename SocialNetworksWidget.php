@@ -1,17 +1,17 @@
 <?php
 namespace Neutron\Widget\SocialNetworksBundle;
 
+use Neutron\MvcBundle\MvcEvents;
+
 use Symfony\Component\Translation\TranslatorInterface;
 
-use Neutron\LayoutBundle\Event\ConfigureWidgetEvent;
-
-use Neutron\LayoutBundle\LayoutEvents;
+use Neutron\MvcBundle\Event\ConfigureWidgetEvent;
 
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
-use Neutron\LayoutBundle\Widget\WidgetFactoryInterface;
+use Neutron\MvcBundle\Widget\WidgetFactoryInterface;
 
-use Neutron\LayoutBundle\Model\Widget\WidgetManagerInterface;
+use Neutron\MvcBundle\Model\Widget\WidgetManagerInterface;
 
 class SocialNetworksWidget
 {
@@ -53,7 +53,7 @@ class SocialNetworksWidget
         ;
         
         $this->dispatcher->dispatch(
-            LayoutEvents::onWidgetConfigure,
+            MvcEvents::onWidgetConfigure,
             new ConfigureWidgetEvent($this->factory, $widget)
         );
  
