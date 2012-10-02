@@ -19,17 +19,17 @@ class SocialNetworksManager extends AbstractManager implements SocialNetworkMana
         $this->translator = $translator;
     }
     
-    public function has($identifier)
+    public function has($id)
     {
         $instances = $this->getInstances(null);
         return isset($instances[$identifier]);
     }
     
-    public function get($identifier)
+    public function get($id)
     {
-        if (!$this->has($identifier)){
+        if (!$this->has($id)){
             throw new \InvalidArgumentException(
-                sprintf('Item with identifier "%s" does not exist.', $identifier)
+                sprintf('Item with id "%s" does not exist.', $id)
             );
         }
         
@@ -38,13 +38,13 @@ class SocialNetworksManager extends AbstractManager implements SocialNetworkMana
     
     public function getInstances($locale)
     {
-        return array($this->getIdentifier() => array(
-            'identifier' => $this->getIdentifier(), 
+        return array($this->getId() => array(
+            'id'    => $this->getId(), 
             'label' => $this->getLabel()
         ));
     }
     
-    public function getIdentifier()
+    public function getId()
     {
         return 'standard';
     }
