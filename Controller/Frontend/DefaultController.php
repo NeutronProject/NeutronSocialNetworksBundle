@@ -13,7 +13,7 @@ use Symfony\Component\DependencyInjection\ContainerAware;
 class DefaultController extends ContainerAware
 {
     
-    public function indexAction($identifier)
+    public function indexAction($widgetInstanceId)
     {         
         $manager = $this->container->get('neutron_social_networks.manager');
         

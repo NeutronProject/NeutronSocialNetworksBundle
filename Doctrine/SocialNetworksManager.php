@@ -1,6 +1,8 @@
 <?php
 namespace Neutron\Widget\SocialNetworksBundle\Doctrine;
 
+use Neutron\Widget\SocialNetworksBundle\SocialNetworksWidget;
+
 use Neutron\Widget\SocialNetworksBundle\Model\SocialNetworkInterface;
 
 use Symfony\Component\Translation\TranslatorInterface;
@@ -22,7 +24,7 @@ class SocialNetworksManager extends AbstractManager implements SocialNetworkMana
     public function has($id)
     {
         $instances = $this->getInstances(null);
-        return isset($instances[$identifier]);
+        return isset($instances[$id]);
     }
     
     public function get($id)
@@ -46,12 +48,17 @@ class SocialNetworksManager extends AbstractManager implements SocialNetworkMana
     
     public function getId()
     {
-        return 'standard';
+        return 0;
     }
     
     public function getLabel()
     {
         return $this->translator->trans('block.title', array(), 'NeutronSocialNetworksBundle');
+    }
+    
+    public function getIdentifier()
+    {
+        return SocialNetworksWidget::IDENTIFIER;
     }
     
     public function getSocialLinks()
