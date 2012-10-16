@@ -103,8 +103,6 @@
 		
 		<service id="neutron_social_networks.form.handler.social_network.default" 
             class="%neutron_social_networks.form.handler.social_network.default.class%" 
-            parent="neutron_component.form.handler"
-            scope="request" 
             public="false"
         >
             <call method="setObjectManager" >
